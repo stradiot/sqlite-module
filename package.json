@@ -1,0 +1,15 @@
+{
+  "name": "sqlite-module",
+  "version": "1.0.0",
+  "description": "sqlite module for IoThings",
+  "main": "sqlite-api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martin Stradiot",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^5.4.0",
+    "ramda": "^0.26.1"
+  }
+}
