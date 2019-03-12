@@ -289,7 +289,8 @@ const addZwaveDevParam = (input = {}) => {
   config.writable |= 0;
   if (typeof config.value !== 'string') {
     config.value = unless(isNil, (x) => toString(JSON.parse(x))) (config.value);
-  }  config.possibleValues = unless(isNil, toString) (config.possibleValues);
+  }
+  config.possibleValues = unless(isNil, toString) (config.possibleValues);
   const prepared = db.prepare(sql.addZwaveDevParam);
 
   const { changes } = prepared.run(config);
