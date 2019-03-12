@@ -154,7 +154,8 @@ const updateDeviceParam = `
   T_DEV_PARAMS
   SET
     value = coalesce(@value, value),
-    polled = coalesce(@polled, polled)
+    polled = coalesce(@polled, polled),
+    timestamp = (strftime('%s', 'now'))
   WHERE
     dev_param_id = @paramId
 `;
@@ -192,6 +193,7 @@ const addZwaveNodeInformation = `
 const getZwaveDevices = `
   SELECT *
   FROM ZWAVE_DEVICES
+  WHERE module_id = @moduleId
 `;
 
 const addZwaveDevParam = `

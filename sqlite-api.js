@@ -213,10 +213,11 @@ const removeDevice = (input = {}) => {
 /// ZWAVE_DEVICES
 ////////////////////////////////////////////////////////////////////////////////
 
-const getZwaveDevices = () => {
-  const prepared = db.prepare(sql.getZwaveDevices);
+const getZwaveDevices = (input = {}) => {
+    const config = pick(['moduleId'], input);
+    const prepared = db.prepare(sql.getZwaveDevices);
 
-  return prepared.all();
+  return prepared.all(config);
 };
 
 const addZwaveDevice = (input = {}) => {
