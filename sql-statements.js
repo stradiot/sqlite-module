@@ -15,17 +15,6 @@ const getParam = `
   WHERE param_id = @paramId
 `;
 
-const getDatatypes = `
-  SELECT *
-  FROM C_DATATYPES
-`;
-
-const getDatatype = `
-  SELECT *
-  FROM C_DATATYPES
-  WHERE datatype_id = @datatypeId
-`;
-
 const getProtocols = `
   SELECT *
   FROM C_PROTOCOLS
@@ -106,12 +95,11 @@ const addDeviceType = `
 
 const addTypeParam = `
   INSERT INTO
-  C_TYPE_PARAMS (fk_type_id, fk_param_id, fk_protocol_id, fk_datatype_id, name, units, def_val, rrd_enable, details)
+  C_TYPE_PARAMS (fk_type_id, fk_param_id, fk_protocol_id, name, units, def_val, rrd_enable, details)
   VALUES (
     @typeId,
     @paramId,
     @protocolId,
-    @datatypeId,
     @name,
     @units,
     @def_val,
@@ -132,12 +120,11 @@ const addDevice = `
 
 const addDeviceParam = `
   INSERT INTO
-  T_DEV_PARAMS (fk_dev_id, fk_param_id, fk_protocol_id, fk_datatype_id, name, units, value, rrd_enable, polled, details)
+  T_DEV_PARAMS (fk_dev_id, fk_param_id, fk_protocol_id, name, units, value, rrd_enable, polled, details)
   VALUES (
     @devId,
     @paramId,
     @protocolId,
-    @datatypeId,
     @name,
     @units,
     @value,
@@ -273,8 +260,6 @@ const getDevParamByZwaveParam = `
 module.exports = {
   getParams,
   getParam,
-  getDatatypes,
-  getDatatype,
   getProtocols,
   getProtocol,
   getDeviceTypes,

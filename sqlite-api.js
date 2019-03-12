@@ -24,19 +24,6 @@ const getParam = (input = {}) => {
   return prepared.get(config);
 };
 
-const getDatatypes = () => {
-  const prepared = db.prepare(sql.getDatatypes);
-
-  return prepared.all();
-};
-
-const getDatatype = (input = {}) => {
-  const config = pick(['datatypeId'], input);
-  const prepared = db.prepare(sql.getDatatype);
-
-  return prepared.get(config);
-};
-
 const getProtocols = () => {
   const prepared = db.prepare(sql.getProtocols);
 
@@ -129,7 +116,6 @@ const addTypeParam = (input = {}) => {
       'typeId',
       'paramId',
       'protocolId',
-      'datatypeId',
       'name',
       'units',
       'def_val',
@@ -160,7 +146,6 @@ const addDeviceParam = (input = {}) => {
       'devId',
       'paramId',
       'protocolId',
-      'datatypeId',
       'name',
       'units',
       'value',
@@ -350,36 +335,6 @@ const createDevType = (input = {}) => {
 
 const createDevInstance = (input = {}) => {
   const config = pickAll(['typeId', 'name', 'details'], input);
-const processZwaveUpdate = (input = {}) => {
-  const config = pickAll([
-    'moduleId',
-    'valueId',
-    'value',
-    'units',
-    'writable',
-    'polled',
-    'pollIntensity'
-    ], input
-  );
-
-  const update = db.transaction((config) => {
-    updateZwaveDevParam(config);
-    const { fk_param_id: paramId } = getDevParamByZwaveParam(
-      pick(['moduleId', 'valueId'], config)
-    );
-    !!paramId && updateDeviceParam({
-      ...pick(['value', 'polled'], config),
-      paramId
-    });
-
-    return {
-      paramId,
-      ...pick(['moduleId', 'valueId', 'value', 'polled'], config)
-    };
-  });
-
-  return update(config);
-};
   const create = db.transaction((config) => {
     const devId = addDevice(config);
     const typeParams = getTypeParams(pick(['typeId'], config));
@@ -392,7 +347,6 @@ const processZwaveUpdate = (input = {}) => {
         devId,
         paramId: param.fk_param_id,
         protocolId: param.fk_protocol_id,
-        datatypeId: param.fk_datatype_id,
         value: param.def_val
       });
 
@@ -478,8 +432,6 @@ module.exports = {
   getParam,
   getProtocols,
   getProtocol,
-  getDatatypes,
-  getDatatype,
   getDeviceTypes,
   getDeviceType,
   getTypeParams,
