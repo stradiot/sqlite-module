@@ -287,7 +287,7 @@ const addZwaveDevParam = (input = {}) => {
   );
 
   config.writable |= 0;
-  config.value = unless(isNil, toString) (config.value);
+  config.value = unless(isNil, (x) => toString(JSON.parse(x))) (config.value);
   config.possibleValues = unless(isNil, toString) (config.possibleValues);
   const prepared = db.prepare(sql.addZwaveDevParam);
 
@@ -307,7 +307,7 @@ const updateZwaveDevParam = (input = {}) => {
     ], input
   );
   config.polled = unless(isNil, (x) => x |= 0) (config.polled);
-  config.value = unless(isNil, toString) (config.value);
+  config.value = unless(isNil, (x) => toString(JSON.parse(x))) (config.value);
   const prepared = db.prepare(sql.updateZwaveDevParam);
 
   const { changes } = prepared.run(config);
