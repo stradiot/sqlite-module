@@ -291,6 +291,7 @@ module.exports = {
   getDevParamByZwaveParam,
 
   getZwaveDevices,
+  getZwaveDevice,
   getZwaveDeviceParams,
   addZwaveDevice,
   removeZwaveDevice,
