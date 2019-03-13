@@ -183,6 +183,12 @@ const getZwaveDevices = `
   WHERE module_id = @moduleId
 `;
 
+const getZwaveDevice = `
+  SELECT *
+  FROM ZWAVE_DEVICES
+  WHERE module_id = @moduleId AND node_id = @nodeId
+`;
+
 const addZwaveDevParam = `
   INSERT OR IGNORE INTO
   ZWAVE_DEV_PARAMS (module_id, node_id, value_id, name, value, units, help, writable, possible_values)

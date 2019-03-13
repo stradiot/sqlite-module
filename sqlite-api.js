@@ -205,6 +205,13 @@ const getZwaveDevices = (input = {}) => {
   return prepared.all(config);
 };
 
+const getZwaveDevice = (input = {}) => {
+    const config = pick(['moduleId', 'nodeId'], input);
+    const prepared = db.prepare(sql.getZwaveDevice);
+
+  return prepared.all(config);
+};
+
 const addZwaveDevice = (input = {}) => {
   const config = pick(['moduleId', 'nodeId'], input);
   const prepared = db.prepare(sql.addZwaveDevice);
