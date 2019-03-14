@@ -360,7 +360,7 @@ const createDevInstance = (input = {}) => {
       paramIds.push(parId);
     });
 
-    return { devId, paramAddedCount: typeParams.length, paramIds };
+    return { devId, created, paramAddedCount: typeParams.length, paramIds };
   });
 
   return create(config);
