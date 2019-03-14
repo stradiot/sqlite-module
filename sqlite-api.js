@@ -343,7 +343,7 @@ const createDevType = (input = {}) => {
 const createDevInstance = (input = {}) => {
   const config = pickAll(['typeId', 'name', 'details'], input);
   const create = db.transaction((config) => {
-    const { devId, created } = addDevice(config);
+    const { id: devId, created } = addDevice(config);
     const typeParams = getTypeParams(pick(['typeId'], config));
 
     const paramIds = [];
