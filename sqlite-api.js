@@ -138,7 +138,7 @@ const addDevice = (input = {}) => {
 
   const { changes, lastInsertRowid: id } = prepared.run(config);
 
-  return !!changes && id;
+  return !!changes && { id, created: Math.floor(Date.now() / 1000) };
 };
 
 const addDeviceParam = (input = {}) => {
@@ -343,7 +343,7 @@ const createDevType = (input = {}) => {
 const createDevInstance = (input = {}) => {
   const config = pickAll(['typeId', 'name', 'details'], input);
   const create = db.transaction((config) => {
-    const devId = addDevice(config);
+    const { devId, created } = addDevice(config);
     const typeParams = getTypeParams(pick(['typeId'], config));
 
     const paramIds = [];
