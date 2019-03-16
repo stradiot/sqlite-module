@@ -267,7 +267,7 @@ const getDevParamByZwaveParam = (input = {}) => {
 };
 
 const addZwaveDevParam = (input = {}) => {
-  const config = pick([
+  const config = pickAll([
     'moduleId',
     'nodeId',
     'valueId',
