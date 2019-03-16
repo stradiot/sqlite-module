@@ -175,7 +175,7 @@ const updateDeviceParam = (input = {}) => {
     ], input
   );
   config.value = `${config.value}`;
-  config.polled |= 0;
+  config.polled = unless(isNil, (x) => x |= 0) (config.polled);
   const prepared = db.prepare(sql.updateDeviceParam);
 
   const { changes } = prepared.run(config);
@@ -302,7 +302,7 @@ const updateZwaveDevParam = (input = {}) => {
   );
   config.polled = unless(isNil, (x) => x |= 0) (config.polled);
   if (typeof config.value !== 'string') {
-    config.value = unless(isNil, (x) => toString(JSON.parse(x))) (config.value);
+    config.value = unless(isNil, (x) => toString(x)) (config.value);
   }
   const prepared = db.prepare(sql.updateZwaveDevParam);
 
