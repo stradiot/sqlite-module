@@ -1,5 +1,5 @@
 const Database = require('better-sqlite3')
-const { pick, pickAll, omit, isNil, unless, toString } = require('ramda');
+const { is, pipe, pick, pickAll, omit, isNil, unless, toString } = require('ramda');
 const sql = require('./sql-statements');
 const { database: path } = require('./config');
 
@@ -174,7 +174,9 @@ const updateDeviceParam = (input = {}) => {
       'polled'
     ], input
   );
-  config.value = `${config.value}`;
+  if (!isNil(config.value) && !is(String, config.value)) {
+    config.value = toString(config.value);
+  }
   config.polled = unless(isNil, (x) => x |= 0) (config.polled);
   const prepared = db.prepare(sql.updateDeviceParam);
 
@@ -279,8 +281,8 @@ const addZwaveDevParam = (input = {}) => {
   );
 
   config.writable |= 0;
-  if (typeof config.value !== 'string') {
-    config.value = unless(isNil, (x) => toString(JSON.parse(x))) (config.value);
+  if (!isNil(config.value) && !is(String, config.value)) {
+    config.value = toString(config.value);
   }
   config.possibleValues = unless(isNil, toString) (config.possibleValues);
   const prepared = db.prepare(sql.addZwaveDevParam);
@@ -301,8 +303,8 @@ const updateZwaveDevParam = (input = {}) => {
     ], input
   );
   config.polled = unless(isNil, (x) => x |= 0) (config.polled);
-  if (typeof config.value !== 'string') {
-    config.value = unless(isNil, (x) => toString(x)) (config.value);
+  if (!isNil(config.value) && !is(String, config.value)) {
+    config.value = toString(config.value);
   }
   const prepared = db.prepare(sql.updateZwaveDevParam);
 
