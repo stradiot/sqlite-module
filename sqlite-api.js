@@ -118,13 +118,13 @@ const addTypeParam = (input = {}) => {
       'protocolId',
       'name',
       'units',
-      'def_val',
-      'rrd_enable',
+      'defVal',
+      'rrdEnable',
       'details'
     ], input
   );
-  config.def_val = `${config.def_val}`;
-  config.rrd_enable |= 0;
+  config.defVal = `${config.defVal}`;
+  config.rrdEnable |= 0;
   const prepared = db.prepare(sql.addTypeParam);
 
   const { changes } = prepared.run(config);
@@ -149,13 +149,13 @@ const addDeviceParam = (input = {}) => {
       'name',
       'units',
       'value',
-      'rrd_enable',
+      'rrdEnable',
       'polled',
       'details'
     ], input
   );
   config.value = `${config.value}`;
-  config.rrd_enable |= 0;
+  config.rrdEnable |= 0;
   config.polled |= 0;
 
   const prepared = db.prepare(sql.addDeviceParam);
@@ -356,7 +356,7 @@ const createDevInstance = (input = {}) => {
         devId,
         paramId: param.fk_param_id,
         protocolId: param.fk_protocol_id,
-        value: param.def_val
+        value: param.defVal
       });
 
       paramIds.push(parId);
