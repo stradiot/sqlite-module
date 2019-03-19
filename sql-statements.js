@@ -102,8 +102,8 @@ const addTypeParam = `
     @protocolId,
     @name,
     @units,
-    @def_val,
-    @rrd_enable,
+    @defVal,
+    @rrdEnable,
     @details
   )
 `;
@@ -128,7 +128,7 @@ const addDeviceParam = `
     @name,
     @units,
     @value,
-    @rrd_enable,
+    @rrdEnable,
     @polled,
     @details
   )
