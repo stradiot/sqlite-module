@@ -356,7 +356,7 @@ const createDevInstance = (input = {}) => {
         devId,
         paramId: param.fk_param_id,
         protocolId: param.fk_protocol_id,
-        value: param.defVal
+        value: param.def_val
       });
 
       paramIds.push(parId);
