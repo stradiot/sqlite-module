@@ -474,6 +474,7 @@ module.exports = {
   updateDeviceParam,
   removeDevice,
   getZwaveDevices,
+  getAllZwaveDevices,
   getZwaveDevice,
   addZwaveDevice,
   addZwaveDeviceInformation,
