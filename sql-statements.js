@@ -224,7 +224,7 @@ const updateZwaveDevParam = `
 const mapZwaveDevParam = `
   UPDATE ZWAVE_DEV_PARAMS
   SET
-    fk_param_id = @paramId,
+    fk_param_id = @paramId
   WHERE
     module_id = @moduleId AND value_id = @valueId
 `;
