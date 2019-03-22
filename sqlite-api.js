@@ -207,6 +207,12 @@ const getZwaveDevices = (input = {}) => {
   return prepared.all(config);
 };
 
+const getAllZwaveDevices = (input = {}) => {
+    const prepared = db.prepare(sql.getAllZwaveDevices);
+
+  return prepared.all();
+};
+
 const getZwaveDevice = (input = {}) => {
     const config = pick(['moduleId', 'nodeId'], input);
     const prepared = db.prepare(sql.getZwaveDevice);
@@ -307,6 +313,21 @@ const updateZwaveDevParam = (input = {}) => {
     config.value = toString(config.value);
   }
   const prepared = db.prepare(sql.updateZwaveDevParam);
+
+  const { changes } = prepared.run(config);
+
+  return !!changes;
+};
+
+const mapZwaveDevParam = (input = {}) => {
+  const config = pickAll([
+    'moduleId',
+    'valueId',
+    'paramId'
+    ], input
+  );
+
+  const prepared = db.prepare(sql.mapZwaveDevParam);
 
   const { changes } = prepared.run(config);
 
@@ -427,9 +448,9 @@ const processZwaveBasicSet = (input = {}) => {
 };
 
 const mapZwaveParam = (input = {}) => {
-  const config = pick(['paramId', 'moduleId', 'valueId'], input);
+  const config = pickAll(['paramId', 'moduleId', 'valueId'], input);
 
-  return updateZwaveDevParam(config);
+  return mapZwaveDevParam(config);
 };
 
 ////////////////////////////////////////////////////////////////////////////////

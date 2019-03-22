@@ -183,6 +183,11 @@ const getZwaveDevices = `
   WHERE module_id = @moduleId
 `;
 
+const getAllZwaveDevices = `
+  SELECT *
+  FROM ZWAVE_DEVICES
+`;
+
 const getZwaveDevice = `
   SELECT *
   FROM ZWAVE_DEVICES
@@ -212,6 +217,14 @@ const updateZwaveDevParam = `
     value = coalesce(@value, value),
     polled = coalesce(@polled, polled),
     poll_intensity = coalesce(@pollIntensity, poll_intensity)
+  WHERE
+    module_id = @moduleId AND value_id = @valueId
+`;
+
+const mapZwaveDevParam = `
+  UPDATE ZWAVE_DEV_PARAMS
+  SET
+    fk_param_id = @paramId,
   WHERE
     module_id = @moduleId AND value_id = @valueId
 `;
@@ -299,4 +312,5 @@ module.exports = {
   addZwaveDevParam,
   updateZwaveBasicSet,
   updateZwaveDevParam,
+  mapZwaveDevParam
 };
